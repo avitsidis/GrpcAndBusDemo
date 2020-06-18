@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.27.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TodoService.Data.InMemory\TodoService.Data.InMemory.csproj" />
+    <ProjectReference Include="..\TodoService.Services\TodoService.Services.csproj" />
+  </ItemGroup>
+
+</Project>
