@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoService.Domain", "TodoS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoService.Data.InMemory", "TodoService.Data.InMemory\TodoService.Data.InMemory.csproj", "{7FBDE154-3725-4AF6-8D44-1C87E4940491}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoService.Client.Wpf", "TodoService.Client.Wpf\TodoService.Client.Wpf.csproj", "{40E17DCB-169D-4A6A-9400-7FD29D62CBA4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{7FBDE154-3725-4AF6-8D44-1C87E4940491}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FBDE154-3725-4AF6-8D44-1C87E4940491}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FBDE154-3725-4AF6-8D44-1C87E4940491}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40E17DCB-169D-4A6A-9400-7FD29D62CBA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40E17DCB-169D-4A6A-9400-7FD29D62CBA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40E17DCB-169D-4A6A-9400-7FD29D62CBA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40E17DCB-169D-4A6A-9400-7FD29D62CBA4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
