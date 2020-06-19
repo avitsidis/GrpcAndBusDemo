@@ -1,6 +1,6 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using Microsoft.Extensions.Logging;
+using NServiceBus;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,14 +8,15 @@ using TodoService.Domain;
 
 namespace TodoService.Services
 {
-    public class TodoGrpcService : TodoList.TodoListBase
+    //TODO should be splitted in 2 classes
+    public class TodoGrpcService : TodoList.TodoListBase, IHandleMessages<AddCommand>
     {
-        private readonly ILogger<TodoGrpcService> logger;
+        //private readonly ILogger<TodoGrpcService> logger;
         private readonly ITodoItemRepository repository;
 
-        public TodoGrpcService(ILogger<TodoGrpcService> logger, ITodoItemRepository repository)
+        public TodoGrpcService(/*ILogger<TodoGrpcService> logger,*/ ITodoItemRepository repository)
         {
-            this.logger = logger;
+            //this.logger = logger;
             this.repository = repository;
         }
 
@@ -36,9 +37,21 @@ namespace TodoService.Services
             return Task.FromResult(reply);
         }
 
+        public Task Handle(AddCommand message, IMessageHandlerContext context)
+        {
+            Console.WriteLine($"command received with id {message.Id}");
+            var newTodoItem = new TodoItem(Guid.Parse(message.Id), message.Title, message.DueDate.ToDateTime());
+            repository.Add(newTodoItem);
+            return Task.FromResult(new AddReply
+            {
+                Item = AsMessage(newTodoItem)
+            });
+        }
+
         private TodoMessage AsMessage(TodoItem item)
         {
-            return new TodoMessage { 
+            return new TodoMessage
+            { 
                 Id = item.Id.ToString(),
                 Title = item.Title,
                 DueDate = Timestamp.FromDateTime(item.DueDate.ToUniversalTime()),

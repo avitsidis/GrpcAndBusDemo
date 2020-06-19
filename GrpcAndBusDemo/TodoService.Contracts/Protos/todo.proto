@@ -11,6 +11,12 @@ service TodoList {
   rpc GetAll (GetAllRequest) returns (GetAllReply);
 }
 
+message AddCommand {
+  string id = 1;
+  string title = 2;
+  google.protobuf.Timestamp due_date = 3;
+}
+
 message AddRequest {
   string title = 1;
   google.protobuf.Timestamp due_date = 2;

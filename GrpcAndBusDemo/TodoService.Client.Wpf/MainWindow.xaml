@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
-        <StackPanel>
+    <StackPanel Height="440" VerticalAlignment="Top">
         <StackPanel Orientation="Horizontal"  Margin="10">
             <Label>Title</Label>
             <TextBox x:Name="TitleTextBox" Width="250" ></TextBox>
@@ -16,10 +16,15 @@
             <Label>Due Date</Label>
             <DatePicker Name="DueDateDatePicker"></DatePicker>
         </StackPanel>
-        <Button x:Name="AddNewItem" Margin="10" Content="Add New Item" Click="AddNewItem_Click"/>
-        <Label  Margin="10">Result</Label>
-        <TextBlock x:Name="OutputTextBlock" Height="250" Margin="10" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"></TextBlock>
-            
+        <StackPanel Orientation="Horizontal"  Margin="10">
+            <Button x:Name="AddNewItem" Margin="10" Content="Add New Item" Click="AddNewItem_Click"/>
+            <Button x:Name="AddViaCommand" Margin="10" Content="Add via command" Click="AddViaCommand_Click"/>
+            <Button x:Name="GetAll" Margin="10" Content="Get all todo" Click="GetAll_Click"/>
         </StackPanel>
+
+        <Label  Margin="10">Result</Label>
+        <TextBlock x:Name="OutputTextBlock" Height="206" Margin="10" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Background="{DynamicResource {x:Static SystemColors.MenuBrushKey}}"></TextBlock>
+
+    </StackPanel>
 
 </Window>
