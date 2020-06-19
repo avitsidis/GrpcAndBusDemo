@@ -13,21 +13,24 @@ namespace TodoService.Services
     {
         //private readonly ILogger<TodoGrpcService> logger;
         private readonly ITodoItemRepository repository;
+        //private readonly IEndpointInstance endpointInstance;
 
-        public TodoGrpcService(/*ILogger<TodoGrpcService> logger,*/ ITodoItemRepository repository)
+        public TodoGrpcService(/*ILogger<TodoGrpcService> logger,*/ ITodoItemRepository repository/*, IEndpointInstance endpointInstance*/)
         {
             //this.logger = logger;
             this.repository = repository;
+            //this.endpointInstance = endpointInstance;
         }
 
         public override Task<AddReply> Add(AddRequest request, ServerCallContext context)
         {
             var newTodoItem = new TodoItem(Guid.NewGuid(), request.Title, request.DueDate.ToDateTime());
             repository.Add(newTodoItem);
+            //await PublishTodoAddedEventFor(newTodoItem);
             return Task.FromResult(new AddReply
             {
                 Item = AsMessage(newTodoItem)
-            }) ;
+            });
         }
 
         public override Task<GetAllReply> GetAll(GetAllRequest request, ServerCallContext context)
@@ -37,16 +40,26 @@ namespace TodoService.Services
             return Task.FromResult(reply);
         }
 
-        public Task Handle(AddCommand message, IMessageHandlerContext context)
+        public async Task Handle(AddCommand message, IMessageHandlerContext context)
         {
             Console.WriteLine($"command received with id {message.Id}");
             var newTodoItem = new TodoItem(Guid.Parse(message.Id), message.Title, message.DueDate.ToDateTime());
             repository.Add(newTodoItem);
-            return Task.FromResult(new AddReply
+            await context.Publish(new TodoAddedEvent
             {
-                Item = AsMessage(newTodoItem)
+                Id = newTodoItem.Id.ToString(),
+                Title = newTodoItem.Title
             });
         }
+
+        //private Task PublishTodoAddedEventFor(TodoItem newTodoItem)
+        //{
+        //    return endpointInstance.Publish(new TodoAddedEvent
+        //    {
+        //        Id = newTodoItem.Id.ToString(),
+        //        Title = newTodoItem.Title
+        //    });
+        //}
 
         private TodoMessage AsMessage(TodoItem item)
         {

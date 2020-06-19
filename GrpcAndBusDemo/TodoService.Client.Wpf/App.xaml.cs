@@ -24,6 +24,7 @@ namespace TodoService.Client.Wpf
         private static EndpointConfiguration GetEndpointConfiguration()
         {
             var endpointConfiguration = new EndpointConfiguration("Client.Wpf");
+            endpointConfiguration.SendOnly();
             endpointConfiguration.UseSerialization<ProtoBufGoogleSerializer>();
             var conventions = endpointConfiguration.Conventions();
             conventions.DefiningCommandsAs(type => type.Name.EndsWith("Command"));

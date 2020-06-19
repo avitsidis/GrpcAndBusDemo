@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoService.Data.InMemory",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoService.Client.Wpf", "TodoService.Client.Wpf\TodoService.Client.Wpf.csproj", "{40E17DCB-169D-4A6A-9400-7FD29D62CBA4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{78E99143-C179-4FFA-8995-06EDB109686F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoService.Client.EventsListener", "TodoService.Client.EventsListener\TodoService.Client.EventsListener.csproj", "{E69C8835-3299-42F9-9929-C42EDFC1FB68}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,9 +49,17 @@ Global
 		{40E17DCB-169D-4A6A-9400-7FD29D62CBA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40E17DCB-169D-4A6A-9400-7FD29D62CBA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40E17DCB-169D-4A6A-9400-7FD29D62CBA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E69C8835-3299-42F9-9929-C42EDFC1FB68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E69C8835-3299-42F9-9929-C42EDFC1FB68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E69C8835-3299-42F9-9929-C42EDFC1FB68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E69C8835-3299-42F9-9929-C42EDFC1FB68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{40E17DCB-169D-4A6A-9400-7FD29D62CBA4} = {78E99143-C179-4FFA-8995-06EDB109686F}
+		{E69C8835-3299-42F9-9929-C42EDFC1FB68} = {78E99143-C179-4FFA-8995-06EDB109686F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {08C6C9AA-AADE-4C7B-A7B8-5F650EE46C62}

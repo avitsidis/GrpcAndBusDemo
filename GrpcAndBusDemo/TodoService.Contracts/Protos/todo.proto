@@ -17,6 +17,11 @@ message AddCommand {
   google.protobuf.Timestamp due_date = 3;
 }
 
+message TodoAddedEvent{
+	string id = 1;
+	string title = 2;
+}
+
 message AddRequest {
   string title = 1;
   google.protobuf.Timestamp due_date = 2;
