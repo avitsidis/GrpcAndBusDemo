@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TodoService.Data.InMemory\TodoService.Data.InMemory.csproj" />
+    <ProjectReference Include="..\TodoService.NServiceBus\TodoService.NServiceBus.csproj" />
     <ProjectReference Include="..\TodoService.Services\TodoService.Services.csproj" />
   </ItemGroup>
 

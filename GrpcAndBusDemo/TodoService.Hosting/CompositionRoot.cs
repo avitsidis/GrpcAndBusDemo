@@ -5,6 +5,7 @@ using SimpleInjector;
 using SimpleInjector.Lifestyles;
 using TodoService.Data.InMemory;
 using TodoService.Domain;
+using TodoService.NServiceBus;
 using TodoService.Services;
 
 namespace TodoService.Hosting
@@ -36,13 +37,7 @@ namespace TodoService.Hosting
 
         private static void RegisterNserviceBus()
         {
-            var endpointConfiguration = new EndpointConfiguration("TodoService");
-            endpointConfiguration.UseSerialization<ProtoBufGoogleSerializer>();
-            var conventions = endpointConfiguration.Conventions();
-            conventions.DefiningCommandsAs(type => type.Name.EndsWith("Command"));
-            conventions.DefiningEventsAs(type => type.Name.EndsWith("Event"));
-
-            endpointConfiguration.UseTransport<LearningTransport>();
+            var endpointConfiguration = NServiceBusHelper.GetEndpointConfiguration("TodoService");
 
             endpointConfiguration.UseContainer<SimpleInjectorBuilder>(
                 customizations =>

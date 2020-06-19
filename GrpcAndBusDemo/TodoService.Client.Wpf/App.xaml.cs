@@ -1,6 +1,6 @@
 ﻿using NServiceBus;
-using NServiceBus.ProtoBufGoogle;
 using System.Windows;
+using TodoService.NServiceBus;
 using TodoService.Services;
 
 namespace TodoService.Client.Wpf
@@ -14,27 +14,13 @@ namespace TodoService.Client.Wpf
 
         private async void AppOnStartup(object sender, StartupEventArgs e)
         {
-            var endpointConfiguration = GetEndpointConfiguration();
+            var endpointConfiguration = NServiceBusHelper.GetSendOnlyEndpointConfiguration("Client.Wpf",new NServicebusRoute[] { 
+                (typeof(AddCommand), "TodoService")
+            });
 
             endpointInstance = await Endpoint.Start(endpointConfiguration);
             MainWindow mainWindow = new MainWindow(endpointInstance);
             mainWindow.Show();
-        }
-
-        private static EndpointConfiguration GetEndpointConfiguration()
-        {
-            var endpointConfiguration = new EndpointConfiguration("Client.Wpf");
-            endpointConfiguration.SendOnly();
-            endpointConfiguration.UseSerialization<ProtoBufGoogleSerializer>();
-            var conventions = endpointConfiguration.Conventions();
-            conventions.DefiningCommandsAs(type => type.Name.EndsWith("Command"));
-            conventions.DefiningEventsAs(type => type.Name.EndsWith("Event"));
-
-            var transport = endpointConfiguration.UseTransport<LearningTransport>();
-            var routing = transport.Routing();
-            routing.RouteToEndpoint(typeof(AddCommand), "TodoService");
-            
-            return endpointConfiguration;
         }
 
         protected override async void OnExit(ExitEventArgs e)
