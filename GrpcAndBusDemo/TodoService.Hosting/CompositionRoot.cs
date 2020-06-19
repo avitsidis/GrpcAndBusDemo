@@ -45,6 +45,8 @@ namespace TodoService.Hosting
                     customizations.UseExistingContainer(Container);
                 });
             Container.RegisterInstance(endpointConfiguration);
+            Container.RegisterInstance<IBus>(Bus.Instance);
+
         }
     }
 }

@@ -1,14 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using NServiceBus;
-using NServiceBus.ProtoBufGoogle;
-using TodoService.Domain;
-using TodoService.Services;
+using TodoService.NServiceBus;
 
 namespace TodoService.Hosting
 {
@@ -22,8 +17,8 @@ namespace TodoService.Hosting
             var aspNetHost = CreateHostBuilder(args).Build();
             await aspNetHost.StartAsync();
             var endpointConfiguration = container.GetInstance<EndpointConfiguration>();
-            var repo = container.GetInstance<ITodoItemRepository>();
             var endpointInstance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);
+            Bus.Initialize(endpointInstance);
             Console.WriteLine("Press any key to exit");
             Console.ReadKey();
 
