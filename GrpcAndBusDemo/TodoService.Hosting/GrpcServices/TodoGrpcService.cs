@@ -1,6 +1,6 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using NServiceBus;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,19 +11,20 @@ namespace TodoService.Services
 {
     public class TodoGrpcService : TodoList.TodoListBase
     {
-        //private readonly ILogger<TodoGrpcService> logger;
+        private readonly ILogger<TodoGrpcService> logger;
         private readonly ITodoItemRepository repository;
         private readonly IBus endpointInstance;
 
-        public TodoGrpcService(/*ILogger<TodoGrpcService> logger,*/ ITodoItemRepository repository, IBus endpointInstance)
+        public TodoGrpcService(ILogger<TodoGrpcService> logger, ITodoItemRepository repository, IBus endpointInstance)
         {
-            //this.logger = logger;
+            this.logger = logger;
             this.repository = repository;
             this.endpointInstance = endpointInstance;
         }
 
         public override async Task<AddReply> Add(AddRequest request, ServerCallContext context)
         {
+            logger.LogDebug("adding a todo");
             var newTodoItem = new TodoItem(Guid.NewGuid(), request.Title, request.DueDate.ToDateTime());
             repository.Add(newTodoItem);
             await PublishTodoAddedEventFor(newTodoItem);
@@ -35,6 +36,7 @@ namespace TodoService.Services
 
         public override Task<GetAllReply> GetAll(GetAllRequest request, ServerCallContext context)
         {
+            logger.LogDebug("getting all todos");
             var reply = new GetAllReply();
             reply.Items.AddRange(repository.GetAll().Select(AsMessage));
             return Task.FromResult(reply);

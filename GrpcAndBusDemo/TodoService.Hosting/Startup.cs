@@ -35,23 +35,23 @@ namespace TodoService.Hosting
         {
             services.AddGrpc();
             services.AddHealthChecks();
-            services.AddSingleton(typeof(IGrpcServiceActivator<>),
-            typeof(GrpcSimpleInjectorActivator<>));
+            //services.AddSingleton(typeof(IGrpcServiceActivator<>),
+            //typeof(GrpcSimpleInjectorActivator<>));
 
 
-            services.AddSimpleInjector(CompositionRoot.Container, options =>
-            {
-                // AddAspNetCore() wraps web requests in a Simple Injector scope and
-                // allows request-scoped framework services to be resolved.
-                options.AddAspNetCore();
-            });
+            //services.AddSimpleInjector(CompositionRoot.Container, options =>
+            //{
+            //    // AddAspNetCore() wraps web requests in a Simple Injector scope and
+            //    // allows request-scoped framework services to be resolved.
+            //    options.AddAspNetCore();
+            //});
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseSimpleInjector(CompositionRoot.Container);
+            //app.UseSimpleInjector(CompositionRoot.Container);
 
             if (env.IsDevelopment())
             {

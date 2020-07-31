@@ -37,15 +37,7 @@ namespace TodoService.Hosting
 
         private static void RegisterNserviceBus()
         {
-            var endpointConfiguration = NServiceBusHelper.GetEndpointConfiguration("TodoService");
-
-            endpointConfiguration.UseContainer<SimpleInjectorBuilder>(
-                customizations =>
-                {
-                    customizations.UseExistingContainer(Container);
-                });
-            Container.RegisterInstance(endpointConfiguration);
-            Container.RegisterInstance<IBus>(Bus.Instance);
+            Container.Register<IBus, TodoService.NServiceBus.NServiceBus>();
 
         }
     }
